@@ -9,6 +9,10 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
+    <link rel="apple-touch-icon" sizes="180x180" href="https://laravel.com/img/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://laravel.com/img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://laravel.com/img/favicon/favicon-16x16.png">
+
     <title>SB Admin 2 - Register</title>
 
     <!-- Custom fonts for this template-->
@@ -34,56 +38,98 @@
                     <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
                     </div>
-                    <form class="user">
+                    <form class="user" method="POST" action="{{ url('/register') }}">
                         @csrf
 
                         <div class="form-group">
-                            <input type="text" class="form-control form-control-user is-invalid" name="first_name" id="first_name" placeholder="First name">
+
+                            <input 
+                                type="text" 
+                                class="form-control form-control-user {{ (isset(session('error')['first_name'])) ? 'is-invalid' : '' }}" 
+                                value="{{ old('first_name') }}" 
+                                name="first_name" 
+                                id="first_name" 
+                                placeholder="Firstname"
+                            />
+
                             <div class="invalid-feedback">
-                                First name is required
+                                {{ (isset(session('error')['first_name'])) ? session('error')['first_name'][0] : '' }}
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <input type="text" class="form-control form-control-user is-invalid" name="last_name" id="last_name" placeholder="Last name">
+                            <input 
+                                type="text" 
+                                class="form-control form-control-user {{ (isset(session('error')['last_name'])) ? 'is-invalid' : '' }}" 
+                                value="{{ old('last_name') }}" 
+                                name="last_name" 
+                                id="last_name" 
+                                placeholder="Lastname"
+                            />
                             <div class="invalid-feedback">
-                                Last name is required
+                                {{ (isset(session('error')['last_name'])) ? session('error')['last_name'][0] : '' }}
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <input type="text" class="form-control form-control-user is-invalid" name="contact_no" id="contact_no" placeholder="Contact Number">
+                            <input 
+                                type="text" 
+                                class="form-control form-control-user {{ (isset(session('error')['contact_no'])) ? 'is-invalid' : '' }}" 
+                                value="{{ old('contact_no') }}" 
+                                name="contact_no" 
+                                id="contact_no" 
+                                placeholder="Contact No."
+                            />
                             <div class="invalid-feedback">
-                                Contact number is required
+                                {{ (isset(session('error')['contact_no'])) ? session('error')['contact_no'][0] : '' }}
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <input type="email" class="form-control form-control-user is-invalid" name="email" id="email" placeholder="Email Address">
+                            <input 
+                                type="email" 
+                                class="form-control form-control-user {{ (isset(session('error')['email'])) ? 'is-invalid' : '' }}" 
+                                value="{{ old('email') }}" 
+                                name="email" 
+                                id="email" 
+                                placeholder="Email"
+                            />
                             <div class="invalid-feedback">
-                                Email is required
+                                {{ (isset(session('error')['email'])) ? session('error')['email'][0] : '' }}
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <div class="col-sm-6 mb-3 mb-sm-0">
-                                <input type="password" class="form-control form-control-user is-invalid" name="password" id="password" placeholder="Password">
+                                <input 
+                                    type="password" 
+                                    class="form-control form-control-user {{ (isset(session('error')['password'])) ? 'is-invalid' : '' }}" 
+                                    name="password" 
+                                    id="password" 
+                                    placeholder="Password"
+                                />
                                 <div class="invalid-feedback">
-                                    Password is required
+                                    {{ (isset(session('error')['password'])) ? session('error')['password'][0] : '' }}
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
-                                <input type="password" class="form-control form-control-user is-invalid" name="password_confirmation" id="password_confirmation" placeholder="Repeat Password">
+                                <input 
+                                    type="password" 
+                                    class="form-control form-control-user {{ (isset(session('error')['password_confirmation'])) ? 'is-invalid' : '' }}" 
+                                    name="password_confirmation" 
+                                    id="password_confirmation" 
+                                    placeholder="Repeat Password"
+                                />
                                 <div class="invalid-feedback">
-                                    Password confirmation is required
+                                    {{ (isset(session('error')['password_confirmation'])) ? session('error')['password_confirmation'][0] : '' }}
                                 </div>
                             </div>
                         </div>
 
-                        <a href="login.html" class="btn btn-primary btn-user btn-block">
+                        <button type="submit" class="btn btn-primary btn-user btn-block">
                             Register Account
-                        </a>
+                        </button>
                     {{-- <hr>
                     <a href="index.html" class="btn btn-google btn-user btn-block">
                         <i class="fab fa-google fa-fw"></i> Register with Google

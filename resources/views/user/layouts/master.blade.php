@@ -10,6 +10,10 @@
   <meta name="author" content="">
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
+  <link rel="apple-touch-icon" sizes="180x180" href="https://laravel.com/img/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://laravel.com/img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://laravel.com/img/favicon/favicon-16x16.png">
+
   <title>Laravel Contact System | @yield('title')</title>
 
   <!-- Custom fonts for this template-->

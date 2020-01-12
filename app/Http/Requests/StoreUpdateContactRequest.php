@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Validator;
 
-class StoreContactRequest extends FormRequest
+class StoreUpdateContactRequest extends FormRequest
 {
     public $validator = null;
 
