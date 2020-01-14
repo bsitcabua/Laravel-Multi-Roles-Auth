@@ -17,7 +17,7 @@ class UserRegistrationController extends BaseController
 
     public function index()
     {
-        return view('pages.register');
+        return view('shared.pages.register');
     }
 
     public function store(RegisterRequest $request)

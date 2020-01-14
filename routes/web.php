@@ -10,10 +10,10 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+// Shared pages
 // Unprotected routes
 Route::get('/register', 'UserRegistrationController@index')->name('register');
 Route::post('/register', 'UserRegistrationController@store')->name('register.store');
-
 Route::get('/login', 'UserSessionController@index')->name('login');
 Route::post('/login', 'UserSessionController@store')->name('login.store');
 

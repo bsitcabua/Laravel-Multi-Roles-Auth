@@ -16,7 +16,7 @@ class UserSessionController extends BaseController
 
     public function index()
     {
-        return view('pages.login');
+        return view('shared.pages.login');
     }
 
     public function store(StoreLoginRequest $request)
