@@ -1,4 +1,4 @@
-@extends('user.layouts.master')
+@extends('shared.layouts.master')
 
 {{-- Title --}}
 @section('title','Profile')
