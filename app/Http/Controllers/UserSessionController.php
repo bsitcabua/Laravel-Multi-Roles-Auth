@@ -35,7 +35,7 @@ class UserSessionController extends BaseController
                 return back()->withErrors([ 'error_msg' => 'Invalid credentials'])->withInput();
             }
 
-            if(auth()->user()->role()->first()->name == 'user')
+            if(auth()->user()->role()->name == 'user')
                 return redirect('/');
             else
                 return redirect('/admin');

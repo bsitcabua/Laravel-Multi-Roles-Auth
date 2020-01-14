@@ -24,10 +24,10 @@ class User extends Authenticatable
         return $this->hasOne('App\UserRole', 'user_id');
     }
 
-    // auth()->user()->role()->first()->name get role name
+    // auth()->user()->role()->name get role name
     public function role()
     {
-        return $this->belongsToMany('App\Role','user_roles','user_id','role_id');
+        return $this->belongsToMany('App\Role','user_roles','user_id','role_id')->first();
     }
     
 }

@@ -43,7 +43,7 @@
                             </p>
 
                             <p title="Role">
-                                {{ (auth()->user()->role()->first()->name) ? ucfirst(auth()->user()->role()->first()->name) : 'N/A' }}
+                                {{ (auth()->user()->role()->name) ? ucfirst(auth()->user()->role()->name) : 'N/A' }}
                             </p>
                         </div>
                     </div>

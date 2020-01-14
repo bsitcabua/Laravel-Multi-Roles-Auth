@@ -30,8 +30,11 @@ Route::group(['middleware' => ['auth']], function () {
 
 
 // Admin routes
-Route::group(['prefix' => 'admin'], function () {
+Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
 
+    Route::get('/', function() {
+        return view('welcome');
+    });
     Route::resource('/contacts', 'User\ContactController');
     Route::resource('/profile', 'User\ProfileController');
 });
