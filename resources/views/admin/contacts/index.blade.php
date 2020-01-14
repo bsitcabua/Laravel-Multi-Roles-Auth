@@ -10,7 +10,7 @@
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Contacts</h1>
-            <a href="{{ url('/contacts/create') }}" class="d-none d-sm-inline-block btn btn-md btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Add New</a>
+            <a href="{{ url('/admin/contacts/create') }}" class="d-none d-sm-inline-block btn btn-md btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Add New</a>
         </div>
         
         @if($errors->any())
@@ -68,7 +68,7 @@
                               @foreach ($contacts as $contact)
                                 <tr>
                                   <th scope="row">
-                                    <a href="{{ url("/contacts/$contact->id") }}" title="View">
+                                    <a href="{{ url("/admin/contacts/$contact->id") }}" title="View">
                                       {{ Str::limit(md5($contact->id), 6 ,'') }}
                                     </a>
                                   </th>
@@ -78,17 +78,17 @@
                                   <td>{{ $contact->email }}</td>
                                   <td>{{ $contact->address }}</td>
                                   <td class="text-center">
-                                    <form method="post" action="{{ url("/contacts/$contact->id") }}">
+                                    <form method="post" action="{{ url("/admin/contacts/$contact->id") }}">
                                       @method("DELETE")
                                       @csrf
 
-                                      <a href="{{ url("/contacts/$contact->id") }}" class="mb-sm-1 mb-lg-0 mr-lg-1 btn btn-sm btn-info btn-icon-split" title="View">
+                                      <a href="{{ url("/admin/contacts/$contact->id") }}" class="mb-sm-1 mb-lg-0 mr-lg-1 btn btn-sm btn-info btn-icon-split" title="View">
                                           <span class="icon text-white-50">
                                             <i class="fa fa-eye"></i>
                                           </span>
                                       </a>
 
-                                      <a href="{{ url("/contacts/$contact->id/edit") }}" class="mb-sm-1 mb-lg-0 btn btn-sm btn-success btn-icon-split" title="Edit">
+                                      <a href="{{ url("/admin/contacts/$contact->id/edit") }}" class="mb-sm-1 mb-lg-0 btn btn-sm btn-success btn-icon-split" title="Edit">
                                           <span class="icon text-white-50">
                                             <i class="fa fa-pen"></i>
                                           </span>

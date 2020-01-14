@@ -16,25 +16,23 @@ Route::get('/register', 'UserRegistrationController@index')->name('register');
 Route::post('/register', 'UserRegistrationController@store')->name('register.store');
 Route::get('/login', 'UserSessionController@index')->name('login');
 Route::post('/login', 'UserSessionController@store')->name('login.store');
+Route::get('/logout','UserSessionController@logout')->name('logout');
 
 
 // User routes'
 Route::group(['middleware' => ['auth']], function () {
 
-    Route::get('/logout','UserSessionController@logout')->name('logout');
+    // Route::get('/logout','UserSessionController@logout')->name('logout');
 
     Route::get('/', 'User\ContactController@index');
     Route::resource('/contacts', 'User\ContactController');
     Route::resource('/profile', 'User\ProfileController');
 });
 
-
 // Admin routes
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
 
-    Route::get('/', function() {
-        return view('welcome');
-    });
-    Route::resource('/contacts', 'User\ContactController');
-    Route::resource('/profile', 'User\ProfileController');
+    Route::get('/', 'Admin\DashboardController@index');
+    Route::resource('/contacts', 'Admin\ContactController');
+    Route::resource('/profile', 'Admin\ProfileController');
 });

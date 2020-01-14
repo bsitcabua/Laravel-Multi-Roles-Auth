@@ -31,8 +31,14 @@
 <body id="page-top">
   <!-- Page Wrapper -->
   <div id="wrapper">
+
     {{-- Sidebar --}}
-    @include('user.layouts.sidebar')
+    @if(auth()->user()->role()->name == 'admin')
+      @include('admin.layouts.sidebar')
+    @else
+      @include('user.layouts.sidebar')
+    @endif
+  
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
       <!-- Main Content -->
@@ -44,7 +50,12 @@
       </div>
       <!-- End of Main Content -->
       {{-- Footer --}}
-      @include('user.layouts.footer')
+      @if(auth()->user()->role()->name == 'admin')
+        @include('admin.layouts.footer')
+      @else
+        @include('user.layouts.footer')
+      @endif
+      
     </div>
     <!-- End of Content Wrapper -->
   </div>
