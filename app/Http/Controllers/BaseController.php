@@ -23,14 +23,4 @@ class BaseController extends Controller
 
     }
 
-    public function isUserRole()
-    {   
-        // Check if loggedin
-        if(Auth::check()){
-            if(Auth::user()->role()->first()->name != 'user'){
-                return redirect('/admin');
-            }
-            return null;
-        }
-    }
 }

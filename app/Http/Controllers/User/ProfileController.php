@@ -12,17 +12,6 @@ use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends BaseController
 {
-
-    public function __construct()
-    {
-        $this->middleware(function ($request, $next) {
-            if($this->isUserRole()){
-                return $this->isUserRole();
-            }
-            return $next($request);
-        });
-    }
-
     /**
      * Display a listing of the resource.
      *

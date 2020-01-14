@@ -11,15 +11,6 @@ use App\Http\Requests\StoreUpdateContactRequest;
 
 class ContactController extends BaseController
 {
-    public function __construct()
-    {
-        // $this->middleware(function ($request, $next) {
-        //     if($this->isUserRole()){
-        //         return $this->isUserRole();
-        //     }
-        //     return $next($request);
-        // });
-    }
     
     public function index()
     {
