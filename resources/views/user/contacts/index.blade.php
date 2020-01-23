@@ -114,10 +114,12 @@
                           </tbody>
                         </table>
                         
-                        @if($contacts->total() > 0)
+                        {{-- @if($contacts->hasPages())
                           <div class="float-left">Total of {{ $contacts->total() }} entries</div>
-                          <div class="float-right">{{ $contacts->links() }}</div>
-                        @endif
+                          <div class="float-right">{{ $contacts->onEachSide(3)->links() }}</div>
+                        @endif --}}
+                      
+                        @include('shared.pagination.paginator', ['paginator' => $contacts]);
                   </div>
               </div>
             </div>

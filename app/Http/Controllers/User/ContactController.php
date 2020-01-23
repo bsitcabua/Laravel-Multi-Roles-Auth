@@ -34,6 +34,8 @@ class ContactController extends BaseController
             }
 
             $contacts = $contacts->paginate(10);
+
+            // dd($contacts);
             
             return view('user.contacts.index', ['contacts' => $contacts]);
 
