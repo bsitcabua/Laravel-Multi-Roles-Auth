@@ -44,11 +44,11 @@
                       <div class="float-right">
                           <form method="GET">
                               <div class="input-group mb-3">
-                                  <input type="text" class="form-control" name="search" id="search" value="{{ strip_tags(request()->input('search')) }}" placeholder="Name, email, contact no., address" {{ (request()->input('search')) ? 'autofocus' : '' }}>
-                                  <div class="input-group-append">
-                                    <button type="submit" class="btn btn-md btn-primary">Search</button>
-                                  </div>
+                                <input type="text" class="form-control" name="search" id="search" value="{{ strip_tags(request()->input('search')) }}" placeholder="Name, email, contact no., address" {{ (request()->input('search')) ? 'autofocus' : '' }}>
+                                <div class="input-group-append">
+                                  <button type="submit" class="btn btn-md btn-primary">Search</button>
                                 </div>
+                              </div>
                           </form>
                       </div>
                       <table class="table table-bordered table-striped">

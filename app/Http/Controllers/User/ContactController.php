@@ -17,11 +17,12 @@ class ContactController extends BaseController
         try {
 
             $search = strip_tags(request()->input('search'));
-
+            
+            $search = preg_replace('/\s+/', ' ', $search); // Remove double space
             // Get all contacts based on user id
             $contacts = Contact::where('user_id', Auth::user()->id);
 
-            // If search no null do search
+            // If search not null do search
             if($search){
                 $contacts = $contacts->where(function($query) use($search) {
                     $query->where('first_name', 'LIKE', '%' . $search . '%')
