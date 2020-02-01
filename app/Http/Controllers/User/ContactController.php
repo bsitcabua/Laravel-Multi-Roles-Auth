@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\StoreUpdateContactRequest;
 
+use App\Exports\ContactsExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 class ContactController extends BaseController
 {
     
@@ -198,5 +201,17 @@ class ContactController extends BaseController
         } catch (\Throwable $e) {
             throw $e;
         }
+    }
+
+    public function exportExcel()
+    {
+        // You can change the extension to csv
+        
+        // return Excel::download(new ContactsExport, 'contacts.xlsx');
+        
+        // Store to disk
+        Excel::store(new ContactsExport, 'contacts.csv');
+
+        dd('Done');
     }
 }

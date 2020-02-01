@@ -25,7 +25,10 @@ Route::group(['middleware' => ['auth']], function () {
     // Route::get('/logout','UserSessionController@logout')->name('logout');
 
     Route::get('/', 'User\ContactController@index');
+
     Route::resource('/contacts', 'User\ContactController');
+    Route::get('/contacts-export-to-excel', 'User\ContactController@exportExcel');
+
     Route::resource('/profile', 'User\ProfileController');
 });
 

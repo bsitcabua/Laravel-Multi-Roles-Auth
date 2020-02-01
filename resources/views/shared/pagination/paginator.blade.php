@@ -13,7 +13,7 @@
     @endphp
     <div class="float-right">
         <ul class="pagination">
-            <li class="page-item {{ ($paginator->currentPage() == 1) ? ' disabled' : '' }}">
+            <li class="mr-2 page-item {{ ($paginator->currentPage() == 1) ? ' disabled' : '' }}">
                 <a class="page-link" href="{{ $paginator->url(1) }}">First</a>
             </li>
             <li class="page-item {{ ($paginator->currentPage() == 1) ? ' disabled' : '' }}">
@@ -53,7 +53,7 @@
             <li class="page-item {{ ($paginator->currentPage() == $paginator->lastPage()) ? ' disabled' : '' }}" disabled="true">
                 <a class="page-link" href="{{ $paginator->url($paginator->currentPage() + 1) }}"><em class="fa fa-caret-right"></em></a>
             </li>
-            <li class="page-item {{ ($paginator->currentPage() == $paginator->lastPage()) ? ' disabled' : '' }}">
+            <li class="ml-2 page-item {{ ($paginator->currentPage() == $paginator->lastPage()) ? ' disabled' : '' }}">
                 <a class="page-link" href="{{ $paginator->url($paginator->lastPage()) }}">Last</a>
             </li>
         </ul>
