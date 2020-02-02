@@ -41,6 +41,18 @@
               <div class="card h-100 py-2">
                   <div class="card-body table-responsive" style="min-height: 350px;">
                       <caption class="float-left">List of all contacts</caption>
+                      <br/>
+                      <div class="dropdown show float-left">
+                        <a class="btn btn-success dropdown-toggle {{ count($contacts) ? '' : 'disabled' }}" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Export
+                        </a>
+                        
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                          <a class="dropdown-item" href="{{ route('export.contacts').'?search='.request()->input('search').'&export=xlsx' }}">Excel</a>
+                          <a class="dropdown-item" href="{{ route('export.contacts').'?search='.request()->input('search').'&export=csv' }}">CSV</a>
+                          <a class="dropdown-item" href="#">PDF</a>
+                        </div>
+                      </div>
                       <div class="float-right">
                           <form method="GET">
                               <div class="input-group mb-3">

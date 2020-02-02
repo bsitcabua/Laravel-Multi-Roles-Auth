@@ -20,6 +20,7 @@ class ContactController extends BaseController
         try {
 
             $search = strip_tags(request()->input('search'));
+            $export = strip_tags(request()->input('export'));
             
             $search = preg_replace('/\s+/', ' ', $search); // Remove double space
             // Get all contacts based on user id
@@ -27,26 +28,30 @@ class ContactController extends BaseController
 
             // If search not null do search
             if($search){
-                $contacts = $contacts->where(function($query) use($search) {
-                    $query->where('first_name', 'LIKE', '%' . $search . '%')
-                        ->orWhere('last_name', 'LIKE', '%' . $search . '%')
-                        ->orWhere('contact_no', 'LIKE', '%' . $search . '%')
-                        ->orWhere('email', 'LIKE', '%' . $search . '%')
-                        ->orWhere('address', 'LIKE', '%' . $search . '%')
-                        ->orWhere(DB::raw("CONCAT(`first_name`, ' ', `last_name`)"), 'LIKE', "%". $search . "%");
-                });
+                $contacts = $this->searcContacts($contacts, $search);
             }
 
             $contacts = $contacts->paginate(10);
-
-            // dd($contacts);
             
             return view('user.contacts.index', ['contacts' => $contacts]);
 
         } catch (\Throwable $e) {
             throw $e;
         }
-        
+    }
+
+    public function searcContacts($model, $search)
+    {
+        $result = $model->where(function($query) use($search) {
+                    $query->where('first_name', 'LIKE', '%' . $search . '%')
+                        ->orWhere('last_name', 'LIKE', '%' . $search . '%')
+                        ->orWhere('contact_no', 'LIKE', '%' . $search . '%')
+                        ->orWhere('email', 'LIKE', '%' . $search . '%')
+                        ->orWhere('address', 'LIKE', '%' . $search . '%')
+                        ->orWhere(DB::raw("CONCAT(`first_name`, ' ', `last_name`)"), 'LIKE', "%". $search . "%");
+        });
+
+        return $result;
     }
 
     /**
@@ -203,15 +208,34 @@ class ContactController extends BaseController
         }
     }
 
-    public function exportExcel()
+    public function export()
     {
-        // You can change the extension to csv
-        
-        // return Excel::download(new ContactsExport, 'contacts.xlsx');
-        
-        // Store to disk
-        Excel::store(new ContactsExport, 'contacts.csv');
 
-        dd('Done');
+        try {
+
+            $search = strip_tags(request()->input('search'));
+            $search = preg_replace('/\s+/', ' ', $search); // Remove double space
+            $export = strip_tags(request()->input('export')); // extention
+
+            // Get all contacts based on user id
+            $contacts = Contact::where('user_id', Auth::user()->id);
+
+            // If search not null do search
+            if($search){
+                $contacts = $this->searcContacts($contacts, $search);
+            }
+
+            $contacts = $contacts->get();
+
+            if($export == 'xlsx' || $export == 'csv')
+                return Excel::download(new ContactsExport($contacts), 'contacts_'.date('Y_m_d').'.'.$export);  
+
+            return back();
+        } catch (\Throwable $e) {
+            throw $e;
+        }
+        // Store to disk
+        // Excel::store(new ContactsExport($query), 'contacts.csv');
+        // dd('Done');
     }
 }
