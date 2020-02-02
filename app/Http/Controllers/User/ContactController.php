@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\StoreUpdateContactRequest;
+use Illuminate\Support\Facades\Storage;
 
 use App\Exports\ContactsExport;
 use Maatwebsite\Excel\Facades\Excel;
@@ -210,7 +211,8 @@ class ContactController extends BaseController
 
     public function export()
     {
-
+        set_time_limit(300);
+        
         try {
 
             $search = strip_tags(request()->input('search'));
@@ -225,11 +227,19 @@ class ContactController extends BaseController
                 $contacts = $this->searcContacts($contacts, $search);
             }
 
+            $filename = 'contacts_'.date('Y_m_d_H_i_s').'.'.$export;
+            $userFullname = Auth::user()->last_name.'_'.Auth::user()->first_name;
+            
             $contacts = $contacts->get();
 
-            if($export == 'xlsx' || $export == 'csv')
-                return Excel::download(new ContactsExport($contacts), 'contacts_'.date('Y_m_d').'.'.$export);  
-
+            if($export == 'xlsx' || $export == 'csv'){
+                return Excel::download(new ContactsExport($contacts), $filename);  
+            }
+            elseif($export == 'pdf'){
+                $pdf = \PDF::loadView('user.contacts.pdf', \compact('contacts'));
+                Storage::put('public/pdf/'.$userFullname.'_'.$filename, $pdf->output());
+                return $pdf->download($filename);
+            }
             return back();
         } catch (\Throwable $e) {
             throw $e;

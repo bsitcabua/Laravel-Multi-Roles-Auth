@@ -48,9 +48,9 @@
                         </a>
                         
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                          <a class="dropdown-item" href="{{ route('export.contacts').'?search='.request()->input('search').'&export=xlsx' }}">Excel</a>
-                          <a class="dropdown-item" href="{{ route('export.contacts').'?search='.request()->input('search').'&export=csv' }}">CSV</a>
-                          <a class="dropdown-item" href="#">PDF</a>
+                          <a data-toggle="tooltip" data-placement="top" title="Export as Excel" class="dropdown-item" href="{{ route('export.contacts').'?search='.request()->input('search').'&export=xlsx' }}">Excel</a>
+                          <a data-toggle="tooltip" data-placement="top" title="Export as Csv" class="dropdown-item" href="{{ route('export.contacts').'?search='.request()->input('search').'&export=csv' }}">CSV</a>
+                          <a data-toggle="tooltip" data-placement="top" title="Export as Pdf" class="dropdown-item" href="{{ route('export.contacts').'?search='.request()->input('search').'&export=pdf' }}">PDF</a>
                         </div>
                       </div>
                       <div class="float-right">
