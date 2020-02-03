@@ -27,7 +27,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/', 'User\ContactController@index');
 
     Route::resource('/contacts', 'User\ContactController');
-    Route::get('/contacts-export-to-excel', 'User\ContactController@export')->name('export.contacts');
+    Route::get('/contacts-export', 'User\ContactController@export')->name('export.contacts');
 
     Route::resource('/profile', 'User\ProfileController');
 });

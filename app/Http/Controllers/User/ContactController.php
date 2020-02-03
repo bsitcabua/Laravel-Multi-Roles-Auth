@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\StoreUpdateContactRequest;
 use Illuminate\Support\Facades\Storage;
-
 use App\Exports\ContactsExport;
 use Maatwebsite\Excel\Facades\Excel;
 
