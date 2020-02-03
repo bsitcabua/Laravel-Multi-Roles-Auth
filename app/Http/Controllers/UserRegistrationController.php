@@ -7,6 +7,8 @@ use App\UserRole;
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\RegisterRequest;
 use Illuminate\Support\Facades\DB;
+use Redirect,Response,Config;
+use Mail;
 
 class UserRegistrationController extends BaseController
 {
@@ -57,6 +59,9 @@ class UserRegistrationController extends BaseController
                 return back()->withErrors([ 'error_msg' => 'Account couldn\'t register pls try again!'])->withInput();
             }
 
+            // Send email
+            $this->sendEmail($user->email);
+
             // Logged user in
             auth()->login($user);
 
@@ -67,5 +72,22 @@ class UserRegistrationController extends BaseController
             DB::rollback();
             throw $e;
         }
+    }
+
+    public function sendEmail($email)
+    {
+        $data['title'] = "Verify Your Account";
+ 
+        Mail::send('email_layouts.resgistration', $data, function($message) use($email) {
+ 
+            $message->to($email)
+                    ->subject('New Account Register');
+        });
+ 
+        if (Mail::failures()) {
+           return 'Sorry! Please try again latter';
+         }else{
+           return 'Great! Successfully send in your mail';
+         }
     }
 }
