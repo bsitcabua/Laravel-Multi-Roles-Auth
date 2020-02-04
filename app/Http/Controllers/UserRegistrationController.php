@@ -7,7 +7,7 @@ use App\UserRole;
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\RegisterRequest;
 use Illuminate\Support\Facades\DB;
-use Redirect,Response,Config;
+// use Redirect,Response,Config;
 use Mail;
 
 class UserRegistrationController extends BaseController
@@ -59,8 +59,10 @@ class UserRegistrationController extends BaseController
                 return back()->withErrors([ 'error_msg' => 'Account couldn\'t register pls try again!'])->withInput();
             }
 
+            $name  = $user->first_name.' '.$user->last_name;
+            $code   = 'E3sFc45Casw'; 
             // Send email
-            $this->sendEmail($user->email);
+            $this->sendEmail($user->email, $code, $name);
 
             // Logged user in
             auth()->login($user);
@@ -74,20 +76,29 @@ class UserRegistrationController extends BaseController
         }
     }
 
-    public function sendEmail($email)
+    public function sendEmail($email, $code, $name)
     {
-        $data['title'] = "Verify Your Account";
- 
-        Mail::send('email_layouts.resgistration', $data, function($message) use($email) {
- 
-            $message->to($email)
-                    ->subject('New Account Register');
-        });
- 
-        if (Mail::failures()) {
-           return 'Sorry! Please try again latter';
-         }else{
-           return 'Great! Successfully send in your mail';
-         }
+
+        try {
+
+            $data = array(
+                'code'  => $code,
+                'name'  => $name,
+            );
+     
+            Mail::send('email_layouts.resgistration', $data, function($message) use($email) {
+                $message->to($email)->subject('Verify your account');
+            });
+     
+            if (Mail::failures()){
+               return false;
+            }else{
+               return true;
+            }
+
+        } catch(\Throwable $e) {
+            throw $e;
+        }
     }
+
 }

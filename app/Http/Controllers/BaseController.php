@@ -10,17 +10,16 @@ class BaseController extends Controller
     {
         try {
 
-            if($request->validator->fails())
-                $response = [ 'response' => 201, 'validator' => $request->validator->errors()];
-            else
-                $response = null;
-
-            return $response;
+            if($request->validator->fails()){
+                return [ 'response' => 201, 'validator' => $request->validator->errors()];
+            }
+            else{
+                return null;
+            }
 
         } catch(\Throwable $e) {
             throw $e;
         }
-
     }
 
 }
