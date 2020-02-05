@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Contact;
+use App\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,6 +12,7 @@ use App\Http\Requests\StoreUpdateContactRequest;
 use Illuminate\Support\Facades\Storage;
 use App\Exports\ContactsExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Debugbar;
 
 class ContactController extends BaseController
 {
@@ -24,7 +26,7 @@ class ContactController extends BaseController
             
             $search = preg_replace('/\s+/', ' ', $search); // Remove double space
             // Get all contacts based on user id
-            $contacts = Contact::where('user_id', Auth::user()->id);
+            $contacts = User::find(Auth::user()->id)->contacts();
 
             // If search not null do search
             if($search){
@@ -226,8 +228,8 @@ class ContactController extends BaseController
                 $contacts = $this->searcContacts($contacts, $search);
             }
 
-            $filename = 'contacts_'.date('Y_m_d_H_i_s').'.'.$export;
-            $userFullname = Auth::user()->last_name.'_'.Auth::user()->first_name;
+            $filename       = 'contacts_'.date('Y_m_d_H_i_s').'.'.$export;
+            $userFullname   = Auth::user()->last_name.'_'.Auth::user()->first_name;
             
             $contacts = $contacts->get();
 
@@ -235,7 +237,15 @@ class ContactController extends BaseController
                 return Excel::download(new ContactsExport($contacts), $filename);  
             }
             elseif($export == 'pdf'){
-                $pdf = \PDF::loadView('user.contacts.pdf', \compact('contacts'));
+
+                $title      = 'Contacts'; // Title
+                $header     = array('First Name', 'Last Name', 'Contact No.', 'Email', 'Address', 'Created At'); // Table header
+                $data       = $contacts; // Data
+                $colNo      = '#'; // Print order no. #
+                $colName    = array('first_name', 'last_name', 'contact_no', 'email', 'address'); // Col name to be printed except the date
+                $colDate    = array('created_at'); // Date config true = print date / not to be printed
+                $pdf        = \PDF::loadView('shared.pdf.template1', \compact('title', 'header', 'data', 'colNo', 'colName', 'colDate'))
+                                ->setPaper('A4', 'portrait'); // A4 legal letter / portrait / landscape
                 Storage::put('public/pdf/'.$userFullname.'_'.$filename, $pdf->output());
                 return $pdf->download($filename);
             }
