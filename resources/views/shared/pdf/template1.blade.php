@@ -40,7 +40,11 @@
                                 @if(count($data) > 0)
                                     @foreach ($data as $key => $each)
                                         <tr>
-                                            <td style="overflow: visible|hidden|wrap">{{ ++$key }}</td>
+                                             {{-- Print order no. # --}}
+                                            @isset($colNo)
+                                                <td style="overflow: visible|hidden|wrap">{{ ++$key }}</td>
+                                            @endisset
+
                                             {{-- Dynamic col name --}}
                                             @foreach($colName as $col)
                                                 <td style="overflow: visible|hidden|wrap">{{ $each->$col }}</td>

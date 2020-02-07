@@ -66,9 +66,8 @@
                       <table class="table table-bordered table-striped">
                           <thead>
                             <tr>
-                              <th scope="col">ID #</th>
-                              <th scope="col">First Name</th>
-                              <th scope="col">Last Name</th>
+                              <th scope="col">#</th>
+                              <th scope="col">Name</th>
                               <th scope="col">Contact No.</th>
                               <th scope="col">Email</th>
                               <th scope="col">Address</th>
@@ -77,15 +76,14 @@
                           </thead>
                           <tbody>
                             @if(count($contacts) > 0)
-                              @foreach ($contacts as $contact)
+                              @foreach ($contacts as $key => $contact)
                                 <tr>
-                                  <th scope="row">
+                                  <th scope="row">{{ ++$key }}</th>
+                                  <td>
                                     <a href="{{ url("/contacts/$contact->id") }}" title="View">
-                                      {{ Str::limit(md5($contact->id), 6 ,'') }}
+                                      {{ $contact->first_name.' '.$contact->last_name }}
                                     </a>
-                                  </th>
-                                  <td>{{ $contact->first_name }}</td>
-                                  <td>{{ $contact->last_name }}</td>
+                                  </td>
                                   <td>{{ $contact->contact_no }}</td>
                                   <td>{{ $contact->email }}</td>
                                   <td>{{ $contact->address }}</td>
@@ -125,13 +123,8 @@
                             
                           </tbody>
                         </table>
-                        
-                        {{-- @if($contacts->hasPages())
-                          <div class="float-left">Total of {{ $contacts->total() }} entries</div>
-                          <div class="float-right">{{ $contacts->onEachSide(3)->links() }}</div>
-                        @endif --}}
                       
-                        @include('shared.pagination.paginator', ['paginator' => $contacts]);
+                        @include('shared.pagination.paginator', ['paginator' => $contacts])
                   </div>
               </div>
             </div>
