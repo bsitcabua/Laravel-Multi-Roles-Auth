@@ -22,7 +22,6 @@ class ContactController extends BaseController
         try {
 
             $search = strip_tags(request()->input('search'));
-            $export = strip_tags(request()->input('export'));
             
             $search = preg_replace('/\s+/', ' ', $search); // Remove double space
             // Get all contacts based on user id
@@ -35,7 +34,7 @@ class ContactController extends BaseController
 
             $contacts = $contacts->paginate(10);
             
-            return view('user.contacts.index', ['contacts' => $contacts]);
+            return view('user.contacts.index', compact('contacts'));
 
         } catch (\Throwable $e) {
             throw $e;

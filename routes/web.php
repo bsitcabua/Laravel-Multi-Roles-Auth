@@ -22,7 +22,7 @@ Route::get('/logout','UserSessionController@logout')->name('logout');
 // User routes'
 Route::group(['middleware' => ['auth']], function () {
 
-    // Route::get('/logout','UserSessionController@logout')->name('logout');
+    Route::get('/logout','UserSessionController@logout')->name('logout');
 
     Route::get('/', 'User\ContactController@index');
 
@@ -30,6 +30,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/contacts-export', 'User\ContactController@export')->name('export.contacts');
 
     Route::resource('/profile', 'User\ProfileController');
+
+    Route::get('/pokemons', 'WebScrapedPokemonController@user');
+
+    Route::get('/scraping-pokemons', 'WebScrapedPokemonController@scraping')->name('scrap.pokemons');
+
 });
 
 // Admin routes
@@ -38,4 +43,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/', 'Admin\DashboardController@index');
     Route::resource('/contacts', 'Admin\ContactController');
     Route::resource('/profile', 'Admin\ProfileController');
+
+    Route::get('/pokemons', 'WebScrapedPokemonController@admin');
 });

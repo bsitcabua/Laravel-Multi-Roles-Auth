@@ -4,9 +4,9 @@
         $paginator = array();
     @endphp
 @endif
-
+{{-- {{ var_dump($paginator) }} --}}
 @if ($paginator->hasPages())
-    <div class="float-left">Total of {{ $contacts->total() }} entries</div>
+    <div class="float-left">Total of {{ $paginator->total() }} entries</div>
     @php
     // maximum number of links (a little bit inaccurate, but will be ok for now)
     $link_limit = 7;
@@ -20,7 +20,7 @@
                 <a class="page-link" href="{{ $paginator->url($paginator->currentPage() - 1) }}"><em class="fa fa-caret-left"></em></a>
             </li>
             {{-- Put a dot --}}
-            @if($paginator->currentPage() >= $paginator->lastPage() - 4 && $paginator->lastPage() > $link_limit)
+            @if($paginator->currentPage() >= 4 && $paginator->lastPage() > $link_limit)
                 <li class="page-item">
                     <a class="page-link disabled">...</a>
                 </li>

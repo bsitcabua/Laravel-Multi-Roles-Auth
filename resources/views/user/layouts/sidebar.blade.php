@@ -23,7 +23,21 @@
 
     <!-- Divider -->
     <hr class="sidebar-divider">
+    <!-- Heading -->
+    <div class="sidebar-heading">
+      Web Scrap
+    </div>
 
+    <!-- Nav Item - Charts -->
+    <li class="nav-item {{ ($currentPath == 'pokemons') ? 'active' : '' }}">
+      <a class="nav-link" href="{{ url('/pokemons') }}">
+          <i class="fas fa-fw fa-dragon"></i>
+          <span>Pokemons</span>
+      </a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
     <!-- Heading -->
     <div class="sidebar-heading">
       Account

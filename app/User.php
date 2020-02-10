@@ -19,6 +19,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Contact', 'user_id');
     }
 
+    public function pokemons()
+    {
+        return $this->hasMany('App\WebScrapedPokemons', 'user_id');
+    }
+
     public function userRole()
     {
         return $this->hasOne('App\UserRole', 'user_id');
