@@ -35,6 +35,11 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/scraping-pokemons', 'WebScrapedPokemonController@scraping')->name('scrap.pokemons');
 
+    // Livewire
+    Route::get('/livewire-counter', function(){
+        return view('counter');
+    });
+
 });
 
 // Admin routes
